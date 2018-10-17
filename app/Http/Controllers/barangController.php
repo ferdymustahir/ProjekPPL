@@ -47,7 +47,8 @@ class barangController extends Controller
               'gambar' => $request->file('gambar')->getClientOriginalName(),
               ]);
         //dd($insert);
-        return redirect('adminhome');
+          barang::create($insert);
+        return redirect('home');
     }
     else{
         //dd($request);

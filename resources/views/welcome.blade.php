@@ -45,12 +45,15 @@
             }
 
             .content {
-                background-color: 
+                padding: 20px;
+                border: 3px solid white;
                 text-align: center;
             }
 
             .title {
                 font-size: 84px;
+                color: white;
+                font-weight: bold;
             }
 
             .links > a {
