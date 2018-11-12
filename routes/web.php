@@ -30,3 +30,27 @@ Route::get('/hapusBarang/{id}','barangController@hapusBarang');
 Route::post('/simBarang/{id}','barangController@editBarang');
 
 Route::post('/simpanBarang','barangController@simpanBarang');
+
+Route::get('/user','userController@lihat');
+
+Route::get('/editprofil','userController@viewedit');
+
+Route::post('/editprofil','userController@storeedit');
+
+Route::post('/beliBarang/{id}','barangController@beliBarang');
+
+Route::get('/viewbarang','adminController@barang');
+
+Route::get('/viewdriver','adminController@driver');
+
+Route::get('tambahDriver','adminController@viewaddriver');
+
+Route::post('/addDriver','adminController@tambahDriver');
+
+Route::get('editDriver/{id}','adminController@viewedit');
+
+Route::post('editDriver/{id}','adminController@editsave');
+
+Route::get('deleteDriver/{id}','adminController@dropdriver');
+
+Route::get('viewPembelian','userController@viewBeli');

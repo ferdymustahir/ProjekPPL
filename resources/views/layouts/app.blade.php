@@ -6,6 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon"  href="img/log.png">
     <!-- Scripts -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -28,8 +29,8 @@
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> SPP.com</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Katalog</a></li>
-      <li><a href="#">Kategory</a></li>
+      <li><a href="#">Keranjang</a></li>
+      <li><a href="#">Pesanan Saya</a></li>
     </ul>
     <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="input-group">
@@ -59,9 +60,10 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                    <span class="glyphicon glyphicon-user"></span>  {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a class="dropdown-item" href="/user">Profil</a></li>
+                              <li>
+                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -70,7 +72,9 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                              </li>
+                            </ul>
+                            
                             </li>
                         @endguest
                     </ul>

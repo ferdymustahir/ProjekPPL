@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\barang;
 use Auth;
 
+
 class HomeController extends Controller
 {
     /**
@@ -27,7 +28,7 @@ class HomeController extends Controller
     {
         if (Auth::User()->level=='1') {
             $tampil = barang::all();
-        return view('adminhome', compact('tampil'));
+        return view('berandaadmin', compact('tampil'));
         }
         else if (Auth::User()->level=='2') {
             $tampil = barang::all();

@@ -30,8 +30,8 @@
         <th>{{$view->stok}}</th>
         <th>{{$view->harga}}</th>
         <th>{{$view->deskripsi}}</th>
-        <th>{{$view->gambar}}</th>
-        <th><a href="{{url('/editBarang/'.$view->id)}}" class="btn btn-primary">Edit</a> <button data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" type="button" class="btn btn-danger">Hapus</button></th>
+        <th><img src="/img/{{$view->gambar}}" style="width: 100px; height: 100px;" /></th>
+        <th><a href="{{url('/editBarang/'.$view->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> <button data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></th>
       </tr>
 
       <div class="modal fade" id="modalHapus{{$loop->iteration}}" role="dialog">

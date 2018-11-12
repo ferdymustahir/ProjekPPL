@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -63,11 +64,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $photoname = $data['fotoktp']->getClientOriginalName();
+        $filename = pathinfo($photoname, PATHINFO_FILENAME);
+        $ext = $data['fotoktp']->getClientOriginalExtension();
+        $tgl = Carbon::now()->format('dmYHis');
+        $namafile = $filename . $tgl . "." . $ext;
+        $data['fotoktp']->move("img/", $namafile);
+
+        $buat =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'alamat' => $data['alamat'],
+            'jeniskelamin' => $data['jeniskelamin'],
+            'agama' => $data['agama'],
+            'nohp' => $data['nohp'],
+            'fotoktp' => $namafile,
             'level' => '2',
+            'nik' =>'0',
+            'fotodriver'=>'',
         ]);
+
+        return $buat;
     }
+ 
 }

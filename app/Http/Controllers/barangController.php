@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\barang;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
+use App\pembelian;
+use Auth;
 
 class barangController extends Controller
 {
@@ -87,7 +89,7 @@ class barangController extends Controller
         }
 
         $edit->save();
-        return redirect('home');
+        return redirect('viewbarang');
     }
     else{
         //dd($request);
@@ -123,5 +125,18 @@ class barangController extends Controller
         $edit= barang::find($id);
         $edit->delete();
         return redirect('home');
+  }
+
+  public function beliBarang(Request $request, $id)
+  {
+    pembelian::create([
+          'idbarang' => $id,
+          'iduser' => Auth::User()->id,
+          'jumlah' => $request->jumlahstok,
+          ]);
+    $barang = barang::where('id','=',$id)->first();
+    $barang->stok = $barang->stok - $request->jumlahstok;
+    $barang->save();
+    return redirect('home');
   }
 }

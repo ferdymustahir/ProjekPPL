@@ -10,4 +10,6 @@ class barang extends Model
     protected $primarykey = 'id';
     protected $fillable =['jenis_kayu','stok','harga','deskripsi','gambar'];
     public $timestamps=true;
+
+
 }
