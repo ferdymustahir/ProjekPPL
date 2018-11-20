@@ -54,3 +54,10 @@ Route::post('editDriver/{id}','adminController@editsave');
 Route::get('deleteDriver/{id}','adminController@dropdriver');
 
 Route::get('viewPembelian','userController@viewBeli');
+
+Route::post('/keranjang/{id}','barangController@keranjang');
+
+Route::post('/pembayaran/{id}','barangController@bayarbarang');
+
+Route::get('/keranjang1','barangController@lihatKeranjang');
+

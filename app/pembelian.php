@@ -8,7 +8,7 @@ class pembelian extends Model
 {
     protected $table = 'pembelian';
     protected $primarykey = 'id';
-    protected $fillable =['idbarang','iduser','jumlah'];
+    protected $fillable =['idbarang','iduser','jumlah','status','idPembayaran'];
     public $timestamps=true;
 
 

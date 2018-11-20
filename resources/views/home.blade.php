@@ -1,7 +1,7 @@
 @section('head')
  
 @endsection
-@extends('layouts.app')
+@extends('layouts/app')
 @section('content')
   <div class="container"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -48,37 +48,42 @@
         <p class="harga">Harga: {{$view->harga}}</p>
         <p class="stok">Stok: {{$view->stok}}</p>
         <p class="deskripsi">{{$view->deskripsi}}</p>
-        <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBeli{{$loop->iteration}}" id="buy" role="button">Beli</button> <a href="#" class="btn btn-default" role="button">Detail</a></p>
+        <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jumlah{{$loop->index}}" id="buy" role="button">Beli</button> <a href="#" class="btn btn-default" role="button">Detail</a></p>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="modalBeli{{$loop->iteration}}" role="dialog">
-                      <div class="modal-dialog">
+    <form class="form-horizontal" action="{{url('/beliBarang/'.$view->id)}}" method="POST">
+                        {{csrf_field()}}
+                            <div class="modal fade" id="jumlah{{$loop->index}}" role="dialog">
+                                  <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Masukkan Jumlah Stock</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    
+                                  </div>
+                                  <div class="modal-body">  
+                                  <label for="text" class="col-md-4 control-label">Jumlah</label> 
+                                   <form><input type="number" name="jumlah" min="1" max="{{$view->stok}}" placeholder="Jumlah"></form>    
+                                    <!-- <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }} row">
+                                    <label for="text" class="col-md-4 control-label">Jumlah</label>
+                                    <div class="col-md-8">
+                                    <select name="jumlah" class="form-control" value="jumlah" required>
+                                    <option value="0">Pilih</option>
+                                    <option value="{{$view->stok}}">{{$view->stok}}</option>
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Konfirmasi Pembelian</h4>
-                          </div>
-                          <div class="modal-body">
-                            
-                              <p>Nama Barang: {{$view->jenis_kayu}}<br>Harga: Rp. {{$view->harga}}<br>Stok: Rp. {{$view->stok}}</p>
-                            
-                              <form method="post" action="/beliBarang/{{$view->id}}">
-                              {{csrf_field()}}
-
-                              <input type="number" min="1" max="{{$view->stok}}" class="form-control" placeholder="Jumlah" name="jumlahstok"></input>
-                              <button type="submit" class=" btn btn-primary">Beli</button>
-                              </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                            </select>
+                            </div>
+                            </div> -->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button class="btn btn-danger" type="submit">Simpan</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </form>
     @endforeach
   </div>
   <nav class="navbar navbar-default">

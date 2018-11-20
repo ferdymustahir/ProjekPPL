@@ -29,7 +29,7 @@
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> SPP.com</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Keranjang</a></li>
+      <li><a href="{{ url('/keranjang1') }}">Keranjang</a></li>
       <li><a href="#">Pesanan Saya</a></li>
     </ul>
     <form class="navbar-form navbar-left" action="/action_page.php">

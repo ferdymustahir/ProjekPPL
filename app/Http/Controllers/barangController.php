@@ -7,7 +7,9 @@ use App\barang;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
 use App\pembelian;
+use App\pembayaran;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class barangController extends Controller
 {
@@ -132,11 +134,81 @@ class barangController extends Controller
     pembelian::create([
           'idbarang' => $id,
           'iduser' => Auth::User()->id,
-          'jumlah' => $request->jumlahstok,
+          'jumlah' => $request->jumlah,
           ]);
     $barang = barang::where('id','=',$id)->first();
-    $barang->stok = $barang->stok - $request->jumlahstok;
+    $barang->stok = $barang->stok - $request->jumlah;
     $barang->save();
-    return redirect('home');
+    return redirect('/keranjang1');
   }
+
+
+   public function keranjang(Request $request,$id)
+    {
+           $insert = ([
+          'idbarang' =>$id,
+          'iduser' => Auth::user()->id,
+          'jumlah' => $request->jumlah,
+          
+
+          
+          ]);
+           pembelian::create($insert);
+
+        return Redirect::back();
+    }
+
+    public function lihatKeranjang(Request $request)
+    {
+
+
+            $lihat = DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.id')
+            ->select('pembelian.*', 'barang.*', DB::raw('jumlah*harga as total'))
+            ->where('pembelian.iduser','=',Auth::user()->id)
+            ->get();
+
+       
+
+
+        return view('keranjang', compact('lihat'));
+    }
+
+    public function bayarbarang(Request $request, $id)
+    {
+        // $fileName   = $request->file('struk')->getClientOriginalName();
+        // dd($fileName);
+        // $request->file('struk')->move("img/", $fileName);
+        // $insert = ([
+        //       'idPembelian' => $request->$id,
+        //       'struk' => $request->file('struk')->getClientOriginalName(),
+        //       ]);
+        // //dd($insert);
+        // pembayaran::create($insert);
+        // return redirect('keranjang');
+
+// dd('masuk');
+      $struk = $request->file('struk');
+      $input['namefile'] = time().'-'.$struk->getClientOriginalName();
+      $tempat = public_path('img');
+      $struk->move($tempat,$input['namefile']);
+
+        $insert = ([
+          'struk' => $input['namefile']
+        ]);
+          $pembayaran=pembayaran::create($insert);
+
+// dd($id);
+          $edit = pembelian::where('id',$id)->first();
+        $edit->status= 'Sedang diproses';
+        $edit->idPembayaran= $pembayaran->id;
+        
+
+        $edit->save();
+        return redirect('keranjang1');
+
+    }
+
+
+
 }

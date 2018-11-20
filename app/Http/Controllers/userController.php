@@ -44,4 +44,20 @@ class userController extends Controller
 
         return view('keranjang',compact('view'));
     }
+
+    public function pembayaran(Request $request)
+    {
+
+
+            $lihat = DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.id')
+            ->select('pembelian.*', 'barang.*', DB::raw('jumlah*harga as total'))
+            ->where('pembelian.iduser','=',Auth::user()->id)
+            ->get();
+
+       
+
+
+        return view('keranjang', compact('lihat'));
+    }
 }

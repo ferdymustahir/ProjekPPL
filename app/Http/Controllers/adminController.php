@@ -15,10 +15,10 @@ class adminController extends Controller
     public function validasiRegist(Request $request)
     {
     $rules = [
-      'nik' => 'required|max:13|unique:users,nik',
-      'name' => 'required|string',
-      'alamat' => 'required',
-      'nohp' => 'required|string',
+      'nikdriver' => 'required|max:13|unique:users,nik',
+      'namadriver' => 'required|string',
+      'alamatdriver' => 'required',
+      'nohpdriver' => 'required|string',
       'fotodriver' => 'required|mimes:jpeg,bmp,png,gif',
       'email' => 'required|string|email'
     ];
